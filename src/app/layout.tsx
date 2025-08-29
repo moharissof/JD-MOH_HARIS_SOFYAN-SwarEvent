@@ -2,6 +2,8 @@ import type React from "react"
 import type { Metadata } from "next"
 import { Quicksand } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
+import { CartProvider } from "@/context/CartContext"
+
 import { Suspense } from "react"
 import "./globals.css"
 
@@ -25,7 +27,9 @@ export default function RootLayout({
   return (
     <html lang="id">
       <body className={`font-sans ${quicksand.variable} antialiased`}>
-        <Suspense fallback={null}>{children}</Suspense>
+        
+                <CartProvider><Suspense fallback={null}>{children}</Suspense></CartProvider>
+
         <Analytics />
       </body>
     </html>

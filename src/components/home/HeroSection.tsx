@@ -1,8 +1,6 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 "use client"
 
 import Link from "next/link"
-import Image from "next/image"
 import { useState, useEffect } from "react"
 
 export default function HeroSection() {
@@ -13,19 +11,19 @@ export default function HeroSection() {
       title: "Beli Tiket Online",
       subtitle:
         "Beli tiket online lebih mudah, ga perlu khawatir kehabisan tiket atau repot datang ke tempat penjualan fisik.",
-      backgroundImage: "/concert-crowd-with-stage-lights-and-performers.png",
+      backgroundImage: "https://plus.unsplash.com/premium_photo-1661315459644-18297c559777?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTN8fGV2ZW50fGVufDB8fDB8fHww",
       buttonText: "Cari event populer",
     },
     {
       title: "Platform Jual Tiket Tanpa Biaya",
       subtitle: "Platform tiketing tanpa biaya di Indonesia. Kelola eventmu dengan mudah dan profitable.",
-      backgroundImage: "/images/banner.jpg",
+      backgroundImage: "https://plus.unsplash.com/premium_photo-1661315459644-18297c559777?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTN8fGV2ZW50fGVufDB8fDB8fHww",
       buttonText: "Jual Tiket Sekarang",
     },
     {
       title: "Jangkauan Nasional",
       subtitle: "Jual tiket ke seluruh Indonesia dengan sistem pembayaran yang aman dan terpercaya.",
-      backgroundImage: "/diverse-crowd-at-outdoor-music-festival-with-stage.png",
+      backgroundImage: "https://plus.unsplash.com/premium_photo-1661315459644-18297c559777?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTN8fGV2ZW50fGVufDB8fDB8fHww",
       buttonText: "Mulai Sekarang",
     },
   ]
@@ -37,15 +35,10 @@ export default function HeroSection() {
     return () => clearInterval(timer)
   }, [slides.length])
 
-  useEffect(() => {
-    console.log("[v0] Current slide:", currentSlide)
-    console.log("[v0] Current background image:", slides[currentSlide].backgroundImage)
-  }, [currentSlide, slides])
-
   return (
     <div className="bg-white py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="relative h-[400px] overflow-hidden bg-gray-200 rounded-2xl shadow-lg">
+        <div className="relative h-[400px] overflow-hidden bg-gray-900 rounded-2xl shadow-lg">
           {/* Background Images */}
           {slides.map((slide, index) => (
             <div
@@ -54,16 +47,13 @@ export default function HeroSection() {
                 index === currentSlide ? "opacity-100" : "opacity-0"
               }`}
             >
-              <div className="absolute inset-0 rounded-2xl overflow-hidden">
-                <Image
-                  src={slide.backgroundImage}
-                  alt={slide.title}
-                  fill
-                  priority={index === 0}
-                  className="object-cover"
-                />
-              </div>
-              <div className="absolute inset-0  bg-opacity-30 rounded-2xl" />
+              <div
+                className="absolute inset-0 bg-cover bg-center rounded-2xl"
+                style={{
+                  backgroundImage: `url('${slide.backgroundImage}')`,
+                }}
+              />
+              <div className="absolute inset-0 bg-opacity-50 rounded-2xl" />
             </div>
           ))}
 

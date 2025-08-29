@@ -11,10 +11,10 @@ export default function Navigation() {
   return (
     <nav className="bg-white shadow-sm sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
+        <div className="flex justify-between items-center h-20">
           <div className="flex items-center">
             <Link href="/" className="flex-shrink-0 flex items-center">
-              <Image className="h-8 w-auto" src="https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=300&q=80" alt="Tokoevent" width={300} height={200} />
+              <Image className="h-10 w-auto" src="/images/Logo.png" alt="Tokoevent" width={300} height={200} />
             </Link>
           </div>
 
@@ -26,10 +26,10 @@ export default function Navigation() {
               Beranda
             </Link>
             <Link
-              href="/partnership"
+              href="/tickets"
               className="text-gray-500 hover:text-gray-900 inline-flex items-center px-1 pt-1 text-sm font-medium font-quicksand"
             >
-              Partnership
+              Ticket
             </Link>
             <Link
               href="/affiliate"
@@ -45,12 +45,18 @@ export default function Navigation() {
             </Link>
           </div>
 
-          <div className="hidden md:flex md:items-center">
+          <div className="hidden md:flex md:items-center md:space-x-4">
             <Link
-              href="/sell-tickets"
-              className="inline-flex items-center px-6 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium font-quicksand text-black bg-[#f2c14b] hover:bg-[#e6b143] transition-colors"
+              href="/login"
+              className="text-gray-500 hover:text-gray-900 inline-flex items-center px-4 py-2 text-sm font-medium font-quicksand transition-colors"
             >
-              Jual Tiket
+              Masuk
+            </Link>
+            <Link
+              href="/register"
+              className="inline-flex items-center px-6 py-3 border border-transparent rounded-lg shadow-sm text-sm font-medium font-quicksand text-black bg-gradient-to-r from-[#f2c14b] to-[#e6b143] hover:from-[#e6b143] hover:to-[#d4a139] transition-all duration-200 transform hover:scale-[1.02] hover:shadow-lg"
+            >
+              Daftar
             </Link>
           </div>
 
@@ -93,12 +99,22 @@ export default function Navigation() {
             >
               Hubungi Kami
             </Link>
-            <Link
-              href="/sell-tickets"
-              className="bg-[#f2c14b] text-black block px-3 py-2 rounded-md text-base font-medium font-quicksand"
-            >
-              Jual Tiket
-            </Link>
+            <div className="px-3 py-2">
+              <div className="flex flex-col space-y-2">
+                <Link
+                  href="/login"
+                  className="text-gray-500 hover:text-gray-900 text-center py-2 rounded-md text-base font-medium font-quicksand border border-gray-300 hover:bg-gray-50 transition-colors"
+                >
+                  Masuk
+                </Link>
+                <Link
+                  href="/register"
+                  className="bg-gradient-to-r from-[#f2c14b] to-[#e6b143] text-black text-center py-2 rounded-md text-base font-medium font-quicksand hover:from-[#e6b143] hover:to-[#d4a139] transition-all"
+                >
+                  Daftar
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       )}
