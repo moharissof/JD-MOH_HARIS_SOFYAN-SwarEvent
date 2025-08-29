@@ -4,7 +4,7 @@
   <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=800&q=80" alt="SwarEvent Banner" width="800"/>
   
   <p align="center">
-    Platform terpercaya untuk membeli tiket event, konser, workshop, dan webinar terbaik di Indonesia
+    Platform terpercaya untuk membeli tiket event, konser, workshop, dan webinar terbaik di Banyuwangi
   </p>
 
   <p align="center">
@@ -18,31 +18,58 @@
 
 ## 📋 Deskripsi
 
-SwarEvent adalah platform modern untuk jual beli tiket event yang terinspirasi dari TokoEvent. Platform ini menyediakan solusi lengkap untuk:
+SwarEvent adalah platform modern untuk jual beli tiket event yang terinspirasi dari TokoEvent. Platform ini dikhususkan untuk melayani event-event di Banyuwangi dan sekitarnya, menyediakan solusi lengkap untuk:
 
-- **Pembeli**: Mencari dan membeli tiket event dengan mudah dan aman
-- **Penyelenggara**: Menjual tiket tanpa biaya dengan jangkauan nasional
-- **Event Organizer**: Mengelola event dengan sistem yang mudah dan profitable
+- **Pembeli**: Mencari dan membeli tiket event lokal Banyuwangi dengan mudah dan aman
+- **Penyelenggara**: Menjual tiket event di Banyuwangi tanpa biaya dengan jangkauan lokal yang optimal
+- **Event Organizer**: Mengelola event di wilayah Banyuwangi dengan sistem yang mudah dan profitable
+
+### 🌟 Fokus Banyuwangi
+- **Event Lokal**: Mendukung event budaya, wisata, dan komunitas Banyuwangi
+- **Wisata Event**: Festival Ijen, Gandrung Sewu, dan event wisata lainnya
+- **Komunitas Lokal**: Mendukung UMKM dan komunitas kreatif Banyuwangi
+- **Budaya Daerah**: Melestarikan dan mempromosikan budaya Using dan Osing
+
+## 🎭 Event Khas Banyuwangi
+
+### Festival & Budaya
+- **Festival Ijen** - Event wisata gunung berapi terkenal
+- **Gandrung Sewu** - Festival tarian tradisional Gandrung
+- **Festival Kuwung** - Perayaan budaya Using
+- **Barong Ider Bumi** - Ritual tradisional keliling Banyuwangi
+
+### Wisata & Alam
+- **Ijen Crater Tour** - Tur kawah Ijen dan blue fire
+- **Sukamade Turtle Tour** - Wisata penyu di pantai Sukamade
+- **Baluran Safari** - Event wisata di Taman Nasional Baluran
+- **Pulau Merah Surfing** - Kompetisi dan kelas surfing
+
+### Kuliner & UMKM
+- **Festival Rujak Soto** - Festival kuliner khas Banyuwangi
+- **Pasar Rakyat** - Event promosi UMKM lokal
+- **Coffee Festival** - Promosi kopi robusta Banyuwangi
 
 ## ✨ Fitur
 
 ### 🎫 Untuk Pembeli Tiket
-- **Pencarian Event**: Temukan event berdasarkan kategori, lokasi, dan tanggal
-- **Pembayaran Aman**: Sistem pembayaran terintegrasi dengan multiple payment gateway
+- **Pencarian Event**: Temukan event di Banyuwangi berdasarkan kategori, lokasi, dan tanggal
+- **Event Lokal**: Akses mudah ke event budaya, wisata, dan hiburan Banyuwangi
+- **Pembayaran Aman**: Sistem pembayaran terintegrasi yang familiar untuk masyarakat lokal
 - **Tiket Digital**: E-ticket yang dapat diunduh langsung setelah pembayaran
-- **Notifikasi Real-time**: Update status event dan reminder
+- **Info Wisata**: Terintegrasi dengan informasi wisata dan akomodasi Banyuwangi
 
 ### 🏢 Untuk Penyelenggara Event
-- **Platform Tanpa Biaya**: Jual tiket tanpa biaya platform
-- **Dashboard Analytics**: Laporan penjualan dan analisis pengunjung
+- **Platform Tanpa Biaya**: Jual tiket event Banyuwangi tanpa biaya platform
+- **Promosi Lokal**: Tools marketing yang efektif untuk audiens Banyuwangi
 - **Manajemen Event**: Kelola event, tiket, dan peserta dengan mudah
-- **Marketing Tools**: Tools promosi dan marketing terintegrasi
+- **Dukungan UMKM**: Mendukung pelaku usaha dan event organizer lokal
 
 ### 🌟 Fitur Unggulan
-- **Jangkauan Nasional**: Jual tiket ke seluruh Indonesia
-- **Multi-kategori**: Musik, teknologi, bisnis, edukasi, gaming, dan lainnya
+- **Fokus Banyuwangi**: Khusus melayani event-event di Banyuwangi dan sekitarnya
+- **Multi-kategori**: Wisata, budaya, musik, teknologi, bisnis, edukasi, dan komunitas
+- **Terintegrasi Wisata**: Koneksi dengan destinasi wisata Banyuwangi (Ijen, Pantai, dll)
 - **Responsive Design**: Optimal di desktop, tablet, dan mobile
-- **SEO Optimized**: Mudah ditemukan di mesin pencari
+- **Dukungan Lokal**: Mendukung ekonomi kreatif dan UMKM Banyuwangi
 
 ## 🚀 Demo
 
@@ -51,15 +78,15 @@ Kunjungi demo live: [SwarEvent Demo](https://swar-event.vercel.app) *(Coming Soo
 ### Screenshots
 
 <div align="center">
-  <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600&q=80" alt="Homepage" width="300"/>
-  <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=600&q=80" alt="Event List" width="300"/>
-  <img src="https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=600&q=80" alt="Event Detail" width="300"/>
+  <img src="https://images.unsplash.com/photo-1579952363873-27d3bfad9c0d?w=600&q=80" alt="Ijen Crater" width="300"/>
+  <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=600&q=80" alt="Event Banyuwangi" width="300"/>
+  <img src="https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=600&q=80" alt="Festival Budaya" width="300"/>
 </div>
 
 ## 🛠️ Teknologi
 
 ### Frontend
-- **Framework**: [Next.js 14](https://nextjs.org/) dengan App Router
+- **Framework**: [Next.js 15](https://nextjs.org/) dengan App Router
 - **Language**: TypeScript
 - **Styling**: [Tailwind CSS](https://tailwindcss.com/)
 - **UI Components**: [Shadcn/UI](https://ui.shadcn.com/)
@@ -70,8 +97,9 @@ Kunjungi demo live: [SwarEvent Demo](https://swar-event.vercel.app) *(Coming Soo
 - **API**: Next.js API Routes
 - **Database**: PostgreSQL / MongoDB
 - **Authentication**: NextAuth.js
-- **Payment**: Midtrans / Xendit
+- **Payment**: Midtrans / Dana / OVO / GoPay (sesuai preferensi lokal)
 - **File Storage**: Cloudinary / AWS S3
+- **Maps**: Google Maps (untuk lokasi event di Banyuwangi)
 
 ### Development Tools
 - **Package Manager**: npm
@@ -193,27 +221,27 @@ npm run export
 
 ## 📋 Roadmap
 
-### Phase 1 - MVP (Current)
+### Phase 1 - MVP Banyuwangi (Current)
 - [x] Landing page design
-- [x] Event listing
-- [x] Category filtering
+- [x] Event listing untuk Banyuwangi
+- [x] Category filtering (wisata, budaya, musik, dll)
 - [x] Responsive design
 - [ ] Event detail page
-- [ ] User registration
+- [ ] User registration untuk warga Banyuwangi
 
-### Phase 2 - Core Features
+### Phase 2 - Core Features Lokal
 - [ ] User authentication
-- [ ] Event creation dashboard
-- [ ] Payment integration
+- [ ] Event creation dashboard untuk organizer lokal
+- [ ] Payment integration (support payment lokal)
 - [ ] Ticket generation
-- [ ] Email notifications
+- [ ] Email/WhatsApp notifications
 
-### Phase 3 - Advanced Features
-- [ ] Event analytics
+### Phase 3 - Ekspansi Regional
+- [ ] Event analytics untuk organizer Banyuwangi
 - [ ] Review system
-- [ ] Social sharing
+- [ ] Integrasi dengan Dinas Pariwisata Banyuwangi
 - [ ] Mobile app
-- [ ] API for third-party integration
+- [ ] Ekspansi ke kabupaten tetangga (Jember, Situbondo)
 
 ## 🤝 Kontribusi
 
@@ -248,16 +276,21 @@ Distributed under the MIT License. See `LICENSE` for more information.
 - [Shadcn/UI](https://ui.shadcn.com/) untuk komponen UI
 - [Unsplash](https://unsplash.com) untuk gambar berkualitas tinggi
 - [Lucide](https://lucide.dev/) untuk icon set
+- Dinas Pariwisata Banyuwangi untuk dukungan promosi wisata
+- Komunitas kreatif Banyuwangi untuk inspirasi fitur lokal
 
 ## 📞 Support
 
 Jika ada pertanyaan atau butuh bantuan:
 - 📧 Email: support@swarevent.com
-- 💬 Discussion: [GitHub Discussions](https://github.com/moharissof/JD-MOH_HARIS_SOFYAN-SwarEvent/discussions)
+- � WhatsApp: +62-xxx-xxxx-xxxx (Customer Service Banyuwangi)
+- �💬 Discussion: [GitHub Discussions](https://github.com/moharissof/JD-MOH_HARIS_SOFYAN-SwarEvent/discussions)
 - 🐛 Issues: [GitHub Issues](https://github.com/moharissof/JD-MOH_HARIS_SOFYAN-SwarEvent/issues)
+- 🏢 Kantor: Jl. [Alamat di Banyuwangi]
 
 ---
 
 <div align="center">
-  <p>Dibuat dengan ❤️ untuk komunitas event Indonesia</p>
+  <p>Dibuat dengan ❤️ untuk komunitas event Banyuwangi</p>
+  <p>🌋 Dari Banyuwangi untuk Banyuwangi 🌋</p>
 </div>
