@@ -1,5 +1,7 @@
 "use client"
 
+import type React from "react"
+
 import { useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
@@ -9,13 +11,15 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Card, CardContent } from "@/components/ui/card"
+import { useToast } from "@/hooks/use-toast"
 
 export default function RegisterPage() {
-  const [userType, setUserType] = useState<'user' | 'partner'>('user')
+  const { toast } = useToast()
+  const [userType, setUserType] = useState<"user" | "partner">("user")
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
-  
+
   // Form data untuk user biasa
   const [userFormData, setUserFormData] = useState({
     fullName: "",
@@ -59,14 +63,95 @@ export default function RegisterPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsLoading(true)
-    
-    // Simulate API call
-    setTimeout(() => {
+
+    try {
+      const formData = userType === "user" ? userFormData : partnerFormData
+
+      // Basic validation
+      if (!formData.fullName || !formData.email || !formData.password) {
+        toast({
+          title: "Validation Error",
+          description: "Please fill in all required fields",
+          variant: "destructive",
+          duration: 3000,
+        })
+        return
+      }
+
+      if (formData.password !== formData.confirmPassword) {
+        toast({
+          title: "Password Mismatch",
+          description: "Passwords do not match. Please try again.",
+          variant: "destructive",
+          duration: 3000,
+        })
+        return
+      }
+
+      if (formData.password.length < 6) {
+        toast({
+          title: "Weak Password",
+          description: "Password must be at least 6 characters long",
+          variant: "destructive",
+          duration: 3000,
+        })
+        return
+      }
+
+      const response = await fetch("/api/auth/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          fullName: formData.fullName,
+          email: formData.email,
+          password: formData.password,
+          userType: userType,
+          phone: formData.phone,
+          // Organizer data (akan diabaikan jika userType === "user")
+          ...(userType === "partner" && {
+            companyName: partnerFormData.companyName,
+            companyAddress: partnerFormData.companyAddress,
+            companyType: partnerFormData.companyType,
+            businessLicense: partnerFormData.businessLicense,
+            bankAccount: partnerFormData.bankAccount,
+            bankName: partnerFormData.bankName,
+            accountHolder: partnerFormData.accountHolder,
+            description: partnerFormData.description,
+          })
+        }),
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.error || "Registration failed")
+      }
+
+      // Registration successful
+      console.log("Registration successful:", data)
+      toast({
+        title: "Registration Successful!",
+        description: "Please check your email to verify your account.",
+        duration: 5000,
+      })
+
+      // Redirect to login page after a short delay
+      setTimeout(() => {
+        window.location.href = "/login"
+      }, 1500)
+    } catch (error) {
+      console.error("Registration error:", error)
+      toast({
+        title: "Registration Failed",
+        description: error instanceof Error ? error.message : "Registration failed",
+        variant: "destructive",
+        duration: 5000,
+      })
+    } finally {
       setIsLoading(false)
-      // Redirect or show success message
-      console.log(`${userType} registered successfully`)
-      window.location.href = "/login"
-    }, 2000)
+    }
   }
 
   return (
@@ -84,10 +169,9 @@ export default function RegisterPage() {
         <div className="absolute bottom-8 left-8 text-white">
           <h2 className="text-3xl font-bold mb-2">Bergabung dengan SwarEvent</h2>
           <p className="text-lg opacity-90">
-            {userType === 'user' 
-              ? 'Dapatkan akses ke ribuan event terbaik di Banyuwangi dan sekitarnya'
-              : 'Mulai menjual tiket event Anda dan jangkau lebih banyak audience'
-            }
+            {userType === "user"
+              ? "Dapatkan akses ke ribuan event terbaik di Banyuwangi dan sekitarnya"
+              : "Mulai menjual tiket event Anda dan jangkau lebih banyak audience"}
           </p>
         </div>
       </div>
@@ -98,13 +182,7 @@ export default function RegisterPage() {
           {/* Header */}
           <div className="text-center">
             <Link href="/" className="inline-block mb-6">
-              <Image
-                src="/images/Logo.png"
-                alt="SwarEvent"
-                width={120}
-                height={40}
-                className="h-10 w-auto"
-              />
+              <Image src="/images/Logo.png" alt="SwarEvent" width={120} height={40} className="h-10 w-auto" />
             </Link>
             <h1 className="text-2xl font-bold text-gray-900 mb-2">Daftar Akun Baru</h1>
             <p className="text-gray-600">Pilih jenis akun yang ingin Anda buat</p>
@@ -114,11 +192,11 @@ export default function RegisterPage() {
           <div className="grid grid-cols-2 gap-3">
             <button
               type="button"
-              onClick={() => setUserType('user')}
+              onClick={() => setUserType("user")}
               className={`p-4 rounded-lg border-2 transition-all duration-200 ${
-                userType === 'user'
-                  ? 'border-[#f2c14b] bg-[#f2c14b]/10 text-black'
-                  : 'border-gray-200 bg-white text-gray-600 hover:border-gray-300'
+                userType === "user"
+                  ? "border-[#f2c14b] bg-[#f2c14b]/10 text-black"
+                  : "border-gray-200 bg-white text-gray-600 hover:border-gray-300"
               }`}
             >
               <User className="w-6 h-6 mx-auto mb-2" />
@@ -127,11 +205,11 @@ export default function RegisterPage() {
             </button>
             <button
               type="button"
-              onClick={() => setUserType('partner')}
+              onClick={() => setUserType("partner")}
               className={`p-4 rounded-lg border-2 transition-all duration-200 ${
-                userType === 'partner'
-                  ? 'border-[#f2c14b] bg-[#f2c14b]/10 text-black'
-                  : 'border-gray-200 bg-white text-gray-600 hover:border-gray-300'
+                userType === "partner"
+                  ? "border-[#f2c14b] bg-[#f2c14b]/10 text-black"
+                  : "border-gray-200 bg-white text-gray-600 hover:border-gray-300"
               }`}
             >
               <Building2 className="w-6 h-6 mx-auto mb-2" />
@@ -144,7 +222,7 @@ export default function RegisterPage() {
           <Card className="border-0 shadow-lg">
             <CardContent className="p-6">
               <form onSubmit={handleSubmit} className="space-y-4">
-                {userType === 'user' ? (
+                {userType === "user" ? (
                   // User Registration Form
                   <>
                     <div>
@@ -541,7 +619,10 @@ export default function RegisterPage() {
                   disabled={isLoading}
                   className="w-full h-12 bg-[#f2c14b] hover:bg-[#e6b143] text-black font-semibold text-base rounded-lg transition-colors duration-200"
                 >
-                  {isLoading ? "Mendaftar..." : `Daftar sebagai ${userType === 'user' ? 'Pembeli' : 'Mitra'}`}
+                  {isLoading 
+                    ? "Creating Account..." 
+                    : `Daftar sebagai ${userType === 'user' ? 'Pembeli' : 'Organizer'}`
+                  }
                 </Button>
 
                 {/* Terms */}

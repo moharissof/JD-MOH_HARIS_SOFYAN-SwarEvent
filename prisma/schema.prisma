@@ -11,15 +11,28 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(uuid())
-  name      String
-  email     String   @unique
-  password  String
-  role      Role     @default(USER) // USER = pembeli, ORGANIZER = penyelenggara acara
-  events    Event[]  @relation("OrganizerEvents")
-  orders    Order[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id              String   @id @default(uuid())
+  name            String
+  email           String   @unique
+  password        String
+  phone           String?
+  role            Role     @default(USER) // USER = pembeli, ORGANIZER = penyelenggara acara
+  
+  // Fields khusus untuk ORGANIZER
+  companyName     String?
+  companyAddress  String?
+  companyType     String?
+  businessLicense String?
+  bankAccount     String?
+  bankName        String?
+  accountHolder   String?
+  description     String?
+  
+  events          Event[]  @relation("OrganizerEvents")
+  destinations     Destination[] @relation("OrganizerDestinations")
+  orders          Order[]
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
 
   @@schema("public")
 }
@@ -28,6 +41,7 @@ model Event {
   id          String        @id @default(uuid())
   title       String
   description String?
+  thumbnail   String?       // URL gambar dari Cloudinary
   category    EventCategory // ONLINE / OFFLINE
   isPaid      Boolean       @default(true) // false = gratis
   price       Float?        // jika gratis bisa null atau 0
@@ -63,9 +77,12 @@ model Destination {
   id          String             @id @default(uuid())
   name        String
   description String?
+  thumbnail   String?            // URL gambar dari Cloudinary
   location    String
   openHours   String?            // contoh: 08.00 - 17.00
   tickets     DestinationTicket[]
+  organizer   User          @relation("OrganizerDestinations", fields: [organizerId], references: [id])
+  organizerId String
   createdAt   DateTime           @default(now())
   updatedAt   DateTime           @updatedAt
 

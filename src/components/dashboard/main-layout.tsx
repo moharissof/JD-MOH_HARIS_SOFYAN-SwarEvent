@@ -13,29 +13,29 @@ interface LayoutProps {
 
 export default function DashboardLayout({ children }: LayoutProps) {
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
-  // const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<User | null>(null);
 
-  // useEffect(() => {
-  //   const fetchUser = async () => {
-  //     const supabase = createClient();
-  //     const {
-  //       data: { user },
-  //     } = await supabase.auth.getUser();
-  //     setUser(user);
+  useEffect(() => {
+    const fetchUser = async () => {
+      const supabase = createClient();
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+      setUser(user);
 
-  //     const { data: authListener } = supabase.auth.onAuthStateChange(
-  //       (event, session) => {
-  //         setUser(session?.user ?? null);
-  //       }
-  //     );
+      const { data: authListener } = supabase.auth.onAuthStateChange(
+        (event, session) => {
+          setUser(session?.user ?? null);
+        }
+      );
 
-  //     return () => {
-  //       authListener?.subscription.unsubscribe();
-  //     };
-  //   };
+      return () => {
+        authListener?.subscription.unsubscribe();
+      };
+    };
 
-  //   fetchUser();
-  // }, []);
+    fetchUser();
+  }, []);
 
   const toggleMobileSidebar = () => {
     setMobileSidebarOpen(!mobileSidebarOpen);
@@ -61,7 +61,7 @@ export default function DashboardLayout({ children }: LayoutProps) {
 
       {/* Main Content */}
       <div className="flex-1 flex flex-col overflow-hidden">
-        <Header toggleMobileSidebar={toggleMobileSidebar} />
+        <Header toggleMobileSidebar={toggleMobileSidebar} user={user} />
         <div className="flex-1 overflow-auto">
           <main className="container mx-auto px-4 py-6">
             {children}

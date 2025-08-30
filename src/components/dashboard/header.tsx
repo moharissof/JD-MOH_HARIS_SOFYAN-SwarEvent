@@ -6,14 +6,13 @@ import { useState } from "react"
 import { User } from "@supabase/supabase-js"
 import { createClient } from "@/lib/supabase/client"
 import { useRouter } from "next/navigation"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 
 interface HeaderProps {
   toggleMobileSidebar?: () => void
-  // user: User | null
+  user: User | null
 }
 
-export default function Header({ toggleMobileSidebar}: HeaderProps) {
+export default function Header({ toggleMobileSidebar, user}: HeaderProps) {
   const [isProfileOpen, setIsProfileOpen] = useState(false)
   const router = useRouter()
 
@@ -59,21 +58,21 @@ export default function Header({ toggleMobileSidebar}: HeaderProps) {
               className="flex items-center gap-3"
               onClick={() => setIsProfileOpen(!isProfileOpen)}
             > 
-              {/* <Image
+              <Image
                 src={user?.user_metadata?.avatar_url || "/images/orang.png"}
                 alt="User"
                 width={40}
                 height={40}
                 className="rounded-xl border-2 border-gray-200"
-              /> */}
-              {/* <div className="hidden md:block text-gray-800">
+              />
+              <div className="hidden md:block text-gray-800">
                 <p className="text-sm font-medium">
                   {user?.user_metadata?.full_name || 'Admin'}
                 </p>
                 <p className="text-xs text-gray-500">
                   {user?.email || 'admin@gmail.com'}
                 </p>
-              </div> */}
+              </div>
               <ChevronDown className="w-4 h-4 text-gray-600" />
             </button>
 

@@ -3,7 +3,8 @@ import type { Metadata } from "next";
 import { Quicksand } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { CartProvider } from "@/context/CartContext";
-import { ToastContainer } from "@/components/Toast/ToastContainer";
+import { AuthProvider } from "@/context/AuthContext";
+import { Toaster } from "@/components/ui/toaster";
 
 import { Suspense } from "react";
 import "./globals.css";
@@ -30,11 +31,13 @@ export default function RootLayout({
   return (
     <html lang="id">
       <body className={`font-sans ${quicksand.variable} antialiased`}>
-        <CartProvider>
-          <Suspense fallback={null}>{children}</Suspense>
-        </CartProvider>
+        <AuthProvider>
+          <CartProvider>
+            <Suspense fallback={null}>{children}</Suspense>
+          </CartProvider>
+        </AuthProvider>
 
-        <ToastContainer />
+        <Toaster />
         <Analytics />
       </body>
     </html>

@@ -1,37 +1,38 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Users, Calendar, Ticket, DollarSign } from "lucide-react"
+import { Users, Calendar, Ticket, DollarSign, Plus } from "lucide-react"
 import PerformanceChart from "@/components/dashboard/chart"
+import { Button } from "@/components/ui/button"
 
 export default function DashboardPage() {
   const stats = [
     {
-      title: "Total Events",
-      value: "24",
-      change: "+12%",
+      title: "My Events",
+      value: "8",
+      change: "+2",
       changeType: "positive" as const,
       icon: Calendar,
       color: "bg-[#f2c14b]",
     },
     {
       title: "Tickets Sold",
-      value: "1,247",
-      change: "+23%",
+      value: "523",
+      change: "+45",
       changeType: "positive" as const,
       icon: Ticket,
       color: "bg-[#e6b143]",
     },
     {
       title: "Total Revenue",
-      value: "Rp 45,8M",
-      change: "+18%",
+      value: "Rp 15,2M",
+      change: "+8%",
       changeType: "positive" as const,
       icon: DollarSign,
       color: "bg-[#d4a139]",
     },
     {
-      title: "Active Users",
-      value: "892",
-      change: "+7%",
+      title: "Event Views",
+      value: "2,341",
+      change: "+12%",
       changeType: "positive" as const,
       icon: Users,
       color: "bg-[#c69530]",
@@ -40,31 +41,31 @@ export default function DashboardPage() {
 
   const recentEvents = [
     {
-      name: "TUTTI 2025 Concert",
+      name: "My Concert 2025",
       date: "October 25, 2025",
-      tickets: 450,
-      revenue: "Rp 12,5M",
+      tickets: 150,
+      revenue: "Rp 4,5M",
       status: "Active",
     },
     {
-      name: "INSYFEST 2025",
-      date: "September 1, 2025",
-      tickets: 320,
-      revenue: "Rp 8,9M",
+      name: "Workshop Digital Marketing",
+      date: "September 15, 2025",
+      tickets: 85,
+      revenue: "Rp 2,1M",
       status: "Active",
     },
     {
-      name: "Nongan Village Festival",
-      date: "October 12, 2025",
-      tickets: 275,
-      revenue: "Rp 6,2M",
+      name: "Music Festival Local",
+      date: "October 10, 2025",
+      tickets: 200,
+      revenue: "Rp 6,8M",
       status: "Active",
     },
     {
-      name: "Anniversary PSK",
-      date: "September 9, 2025",
-      tickets: 180,
-      revenue: "Rp 4,1M",
+      name: "Business Seminar",
+      date: "August 20, 2025",
+      tickets: 88,
+      revenue: "Rp 1,8M",
       status: "Completed",
     },
   ]
@@ -74,10 +75,14 @@ export default function DashboardPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
-          <p className="text-gray-600">Welcome back to SwarEvent Admin Panel</p>
+          <h1 className="text-2xl font-bold text-gray-900">Organizer Dashboard</h1>
+          <p className="text-gray-600">Manage your events and track performance</p>
         </div>
-        <div className="mt-4 sm:mt-0">
+        <div className="mt-4 sm:mt-0 flex items-center gap-3">
+          <Button className="bg-[#f2c14b] hover:bg-[#e6b143] text-black font-medium">
+            <Plus className="w-4 h-4 mr-2" />
+            Create Event
+          </Button>
           <div className="flex items-center space-x-2 text-sm text-gray-500">
             <span>Last updated:</span>
             <span className="font-medium">2 minutes ago</span>
@@ -126,32 +131,32 @@ export default function DashboardPage() {
               <div className="flex items-center space-x-3">
                 <div className="w-2 h-2 bg-[#f2c14b] rounded-full"></div>
                 <div className="flex-1">
-                  <p className="text-sm font-medium text-gray-900">New event created</p>
-                  <p className="text-xs text-gray-500">TUTTI 2025 Concert</p>
+                  <p className="text-sm font-medium text-gray-900">Event published</p>
+                  <p className="text-xs text-gray-500">My Concert 2025</p>
                 </div>
                 <span className="text-xs text-gray-400">2m ago</span>
               </div>
               <div className="flex items-center space-x-3">
                 <div className="w-2 h-2 bg-[#e6b143] rounded-full"></div>
                 <div className="flex-1">
-                  <p className="text-sm font-medium text-gray-900">Ticket sales milestone</p>
-                  <p className="text-xs text-gray-500">1000+ tickets sold</p>
+                  <p className="text-sm font-medium text-gray-900">Ticket milestone reached</p>
+                  <p className="text-xs text-gray-500">100+ tickets sold</p>
                 </div>
                 <span className="text-xs text-gray-400">1h ago</span>
               </div>
               <div className="flex items-center space-x-3">
                 <div className="w-2 h-2 bg-[#d4a139] rounded-full"></div>
                 <div className="flex-1">
-                  <p className="text-sm font-medium text-gray-900">New user registered</p>
-                  <p className="text-xs text-gray-500">25 new users today</p>
+                  <p className="text-sm font-medium text-gray-900">Payment received</p>
+                  <p className="text-xs text-gray-500">Rp 500K from ticket sales</p>
                 </div>
                 <span className="text-xs text-gray-400">3h ago</span>
               </div>
               <div className="flex items-center space-x-3">
                 <div className="w-2 h-2 bg-[#c69530] rounded-full"></div>
                 <div className="flex-1">
-                  <p className="text-sm font-medium text-gray-900">Event completed</p>
-                  <p className="text-xs text-gray-500">Anniversary PSK</p>
+                  <p className="text-sm font-medium text-gray-900">Event updated</p>
+                  <p className="text-xs text-gray-500">Workshop details changed</p>
                 </div>
                 <span className="text-xs text-gray-400">1d ago</span>
               </div>

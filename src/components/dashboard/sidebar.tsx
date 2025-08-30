@@ -1,6 +1,6 @@
 "use client"
 
-import { BarChart3, FileText, GraduationCap, Home, SquareUserRound, CircleUserRound, ShieldUser, DatabaseZap   } from "lucide-react"
+import { BarChart3, FileText, GraduationCap, Home, SquareUserRound, CircleUserRound, ShieldUser, DatabaseZap, MapPin } from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 
@@ -20,7 +20,12 @@ export default function Sidebar() {
     {
       title: "Events",
       icon: CircleUserRound,
-      href: "/dashboard/events",
+      href: "/dashboard/event",
+    },
+    {
+      title: "Destinations",
+      icon: MapPin,
+      href: "/dashboard/destination",
     },
     {
       title: "Tickets",

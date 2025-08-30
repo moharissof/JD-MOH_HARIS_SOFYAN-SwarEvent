@@ -1,5 +1,8 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
+import { PrismaClient } from "@prisma/client";
+
+const prisma = new PrismaClient();
 
 export async function POST(request: Request) {
   try {
@@ -15,10 +18,10 @@ export async function POST(request: Request) {
     }
 
     // Create a Supabase client
-    const supabase = createClient();
+    const supabase = await createClient();
 
     // Sign in with Supabase
-    const { data, error } = await (await supabase).auth.signInWithPassword({
+    const { data, error } = await supabase.auth.signInWithPassword({
       email,
       password,
     });
@@ -27,12 +30,26 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: error.message }, { status: 401 });
     }
 
-    // Debug: Cetak email dari Supabase Auth
-    console.log("Supabase Auth user email:", data.user.email);
+    // Get user data from database including role
+    const user = await prisma.user.findUnique({
+      where: {
+        id: data.user.id
+      },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        role: true
+      }
+    });
 
-    // Check if user is verified in your database
+    if (!user) {
+      return NextResponse.json({ error: "User not found in database" }, { status: 404 });
+    }
+
     return NextResponse.json({
       session: data.session,
+      user: user
     });
   } catch (error) {
     console.error("Login error:", error);
@@ -40,5 +57,7 @@ export async function POST(request: Request) {
       { error: "An error occurred during login" },
       { status: 500 }
     );
+  } finally {
+    await prisma.$disconnect();
   }
 } 

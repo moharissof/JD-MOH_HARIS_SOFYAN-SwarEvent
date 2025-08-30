@@ -7,8 +7,10 @@ import { Eye, EyeOff, Mail, Lock } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { useToast } from "@/hooks/use-toast"
 
 export default function LoginPage() {
+  const { toast } = useToast()
   const [showPassword, setShowPassword] = useState(false)
   const [formData, setFormData] = useState({
     email: "",
@@ -27,12 +29,61 @@ export default function LoginPage() {
     e.preventDefault()
     setIsLoading(true)
     
-    // Simulate login process
-    setTimeout(() => {
+    try {
+      // Basic validation
+      if (!formData.email || !formData.password) {
+        toast({
+          title: "Validation Error",
+          description: "Please fill in all fields",
+          variant: "destructive",
+          duration: 3000,
+        })
+        return
+      }
+
+      // Call login API
+      const response = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: formData.email,
+          password: formData.password,
+        }),
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.error || "Login failed")
+      }
+      
+      // Success toast
+      toast({
+        title: "Login Successful!",
+        description: `Welcome back, ${data.user.name}!`,
+        duration: 3000,
+      })
+
+      // Redirect based on user role
+      setTimeout(() => {
+        if (data.user.role === "ORGANIZER") {
+          window.location.href = "/dashboard"
+        } else {
+          window.location.href = "/"
+        }
+      }, 1000)
+    } catch (error) {
+      toast({
+        title: "Login Failed",
+        description: error instanceof Error ? error.message : "Invalid email or password",
+        variant: "destructive",
+        duration: 3000,
+      })
+    } finally {
       setIsLoading(false)
-      // Redirect to home or dashboard
-      window.location.href = "/"
-    }, 2000)
+    }
   }
 
   return (
