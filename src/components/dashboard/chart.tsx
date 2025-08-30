@@ -4,19 +4,19 @@ export default function PerformanceChart() {
         <div className="flex flex-wrap justify-between items-center mb-6">
           <div className="flex items-center gap-6">
             <div className="flex items-center gap-2">
-              <div className="w-3 h-3 rounded-full bg-blue-500"></div>
-              <span className="text-sm text-gray-600 font-medium">Nilai Mahasiswa</span>
+              <div className="w-3 h-3 rounded-full bg-[#f2c14b]"></div>
+              <span className="text-sm text-gray-600 font-medium">Event Sales</span>
             </div>
             <div className="flex items-center gap-2">
-              <div className="w-3 h-3 rounded-full bg-green-500"></div>
-              <span className="text-sm text-gray-600 font-medium">Nilai Dosen</span>
+              <div className="w-3 h-3 rounded-full bg-[#e6b143]"></div>
+              <span className="text-sm text-gray-600 font-medium">Ticket Revenue</span>
             </div>
           </div>
           <select className="mt-2 sm:mt-0 text-sm border border-gray-200 rounded-lg px-3 py-2 bg-white font-medium">
-            <option>Semua Program</option>
-            <option>MBKM</option>
-            <option>PKL</option>
-            <option>KKN</option>
+            <option>All Events</option>
+            <option>Concerts</option>
+            <option>Festivals</option>
+            <option>Workshops</option>
           </select>
         </div>
   
@@ -33,25 +33,25 @@ export default function PerformanceChart() {
   
             {/* X-axis labels */}
             <text x="100" y="320" textAnchor="middle" fontSize="12" fill="#6b7280">
-              Minggu 1
+              Week 1
             </text>
             <text x="200" y="320" textAnchor="middle" fontSize="12" fill="#6b7280">
-              Minggu 2
+              Week 2
             </text>
             <text x="300" y="320" textAnchor="middle" fontSize="12" fill="#6b7280">
-              Minggu 3
+              Week 3
             </text>
             <text x="400" y="320" textAnchor="middle" fontSize="12" fill="#6b7280">
-              Minggu 4
+              Week 4
             </text>
             <text x="500" y="320" textAnchor="middle" fontSize="12" fill="#6b7280">
-              Minggu 5
+              Week 5
             </text>
             <text x="600" y="320" textAnchor="middle" fontSize="12" fill="#6b7280">
-              Minggu 6
+              Week 6
             </text>
             <text x="700" y="320" textAnchor="middle" fontSize="12" fill="#6b7280">
-              Minggu 7
+              Week 7
             </text>
   
             {/* Y-axis labels */}
@@ -71,33 +71,33 @@ export default function PerformanceChart() {
               100
             </text>
   
-            {/* Chart bars - Mahasiswa */}
-            <rect x="80" y="70" width="40" height="230" rx="6" fill="url(#blueGradient)" />
-            <rect x="180" y="50" width="40" height="250" rx="6" fill="url(#blueGradient)" />
-            <rect x="280" y="90" width="40" height="210" rx="6" fill="url(#blueGradient)" />
-            <rect x="380" y="40" width="40" height="260" rx="6" fill="url(#blueGradient)" />
-            <rect x="480" y="60" width="40" height="240" rx="6" fill="url(#blueGradient)" />
-            <rect x="580" y="30" width="40" height="270" rx="6" fill="url(#blueGradient)" />
-            <rect x="680" y="50" width="40" height="250" rx="6" fill="url(#blueGradient)" />
+            {/* Chart bars - Event Sales */}
+            <rect x="80" y="70" width="40" height="230" rx="6" fill="url(#yellowGradient)" />
+            <rect x="180" y="50" width="40" height="250" rx="6" fill="url(#yellowGradient)" />
+            <rect x="280" y="90" width="40" height="210" rx="6" fill="url(#yellowGradient)" />
+            <rect x="380" y="40" width="40" height="260" rx="6" fill="url(#yellowGradient)" />
+            <rect x="480" y="60" width="40" height="240" rx="6" fill="url(#yellowGradient)" />
+            <rect x="580" y="30" width="40" height="270" rx="6" fill="url(#yellowGradient)" />
+            <rect x="680" y="50" width="40" height="250" rx="6" fill="url(#yellowGradient)" />
   
-            {/* Chart bars - Dosen */}
-            <rect x="120" y="90" width="40" height="210" rx="6" fill="url(#greenGradient)" />
-            <rect x="220" y="70" width="40" height="230" rx="6" fill="url(#greenGradient)" />
-            <rect x="320" y="110" width="40" height="190" rx="6" fill="url(#greenGradient)" />
-            <rect x="420" y="60" width="40" height="240" rx="6" fill="url(#greenGradient)" />
-            <rect x="520" y="80" width="40" height="220" rx="6" fill="url(#greenGradient)" />
-            <rect x="620" y="50" width="40" height="250" rx="6" fill="url(#greenGradient)" />
-            <rect x="720" y="70" width="40" height="230" rx="6" fill="url(#greenGradient)" />
+            {/* Chart bars - Revenue */}
+            <rect x="120" y="90" width="40" height="210" rx="6" fill="url(#orangeGradient)" />
+            <rect x="220" y="70" width="40" height="230" rx="6" fill="url(#orangeGradient)" />
+            <rect x="320" y="110" width="40" height="190" rx="6" fill="url(#orangeGradient)" />
+            <rect x="420" y="60" width="40" height="240" rx="6" fill="url(#orangeGradient)" />
+            <rect x="520" y="80" width="40" height="220" rx="6" fill="url(#orangeGradient)" />
+            <rect x="620" y="50" width="40" height="250" rx="6" fill="url(#orangeGradient)" />
+            <rect x="720" y="70" width="40" height="230" rx="6" fill="url(#orangeGradient)" />
   
             {/* Gradients */}
             <defs>
-              <linearGradient id="blueGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stopColor="#3b82f6" />
-                <stop offset="100%" stopColor="#60a5fa" />
+              <linearGradient id="yellowGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stopColor="#f2c14b" />
+                <stop offset="100%" stopColor="#f59e0b" />
               </linearGradient>
-              <linearGradient id="greenGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stopColor="#22c55e" />
-                <stop offset="100%" stopColor="#4ade80" />
+              <linearGradient id="orangeGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stopColor="#e6b143" />
+                <stop offset="100%" stopColor="#d97706" />
               </linearGradient>
             </defs>
           </svg>
