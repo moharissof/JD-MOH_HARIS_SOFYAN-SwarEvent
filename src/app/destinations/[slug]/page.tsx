@@ -1,5 +1,6 @@
 "use client"
 
+import React from "react"
 import { notFound } from "next/navigation"
 import Image from "next/image"
 import Link from "next/link"
@@ -16,171 +17,161 @@ interface TicketType {
   benefits: string[]
 }
 
-interface EventData {
+interface DestinationData {
   id: string
-  title: string
+  name: string
   category: string
   location: string
-  date: string
-  time: string
-  organizer: string
   image: string
-  price: number
-  originalPrice?: number
   description: string
   fullDescription: string
   highlights: string[]
-  schedule: { time: string; activity: string }[]
-  venue: {
-    name: string
-    address: string
-    capacity: string
-    facilities: string[]
-  }
+  facilities: string[]
   ticketTypes: TicketType[]
   rating: number
   reviews: number
   tags: string[]
+  openingHours: string
+  bestTimeToVisit: string
 }
 
-// Event data - in a real app, this would come from a database or API
-const eventData: Record<string, EventData> = {
-  "tutti-2025-1": {
-    id: "tutti-2025-1",
-    title: "TUTTI 2025 : An Annual Concert",
-    category: "Cinema",
-    location: "Goethe Haus Jakarta",
-    date: "October 25, 2025",
-    time: "19:00 WIB",
-    organizer: "Sonore",
-    image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=800&h=600&fit=crop&crop=center&q=80",
-    price: 150000,
-    originalPrice: 200000,
-    description:
-      "TUTTI 2025 adalah konser tahunan yang menampilkan kolaborasi musik klasik dan kontemporer. Acara ini menghadirkan musisi-musisi terbaik Indonesia dalam satu panggung yang megah di Goethe Haus Jakarta.",
-    fullDescription:
-      "Bergabunglah dengan kami dalam TUTTI 2025, sebuah pengalaman musik yang tak terlupakan. Konser ini menampilkan orkestra lengkap dengan repertoar yang beragam, mulai dari karya klasik hingga aransemen modern dari lagu-lagu populer. Dengan venue yang intimate di Goethe Haus Jakarta, setiap penonton akan merasakan kedekatan dengan para musisi dan kualitas suara yang luar biasa.",
+// Destination data - in a real app, this would come from a database or API
+const destinationData: Record<string, DestinationData> = {
+  "pantai-parangtritis": {
+    id: "1",
+    name: "Pantai Parangtritis",
+    category: "Pantai",
+    location: "Yogyakarta",
+    image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop&crop=center&q=80",
+    description: "Pantai yang terkenal dengan ombak besar dan sunset yang indah di Yogyakarta.",
+    fullDescription: "Pantai Parangtritis adalah salah satu pantai paling terkenal di Yogyakarta yang menawarkan pemandangan sunset yang menakjubkan. Pantai ini terkenal dengan legenda Nyi Roro Kidul dan menawarkan berbagai aktivitas wisata seperti naik andong, ATV, dan paralayang. Dengan hamparan pasir hitam yang luas dan ombak yang besar, pantai ini menjadi destinasi favorit wisatawan lokal dan mancanegara.",
     highlights: [
-      "Orkestra lengkap dengan 50+ musisi",
-      "Repertoar klasik dan kontemporer",
-      "Venue intimate dengan akustik terbaik",
-      "Meet & greet dengan konduktor",
-      "Merchandise eksklusif",
+      "Sunset terindah di Yogyakarta",
+      "Legenda Nyi Roro Kidul",
+      "Aktivitas ATV dan paralayang",
+      "Naik andong di tepi pantai",
+      "Gumuk pasir (sand dune)",
     ],
-    schedule: [
-      { time: "18:00", activity: "Pintu masuk dibuka" },
-      { time: "18:30", activity: "Pre-show entertainment" },
-      { time: "19:00", activity: "Konser dimulai - Bagian I" },
-      { time: "20:00", activity: "Intermisi (15 menit)" },
-      { time: "20:15", activity: "Konser Bagian II" },
-      { time: "21:30", activity: "Penutupan & Meet & Greet" },
+    facilities: [
+      "Tempat Parkir",
+      "Toilet Umum", 
+      "Warung Makan",
+      "Penyewaan ATV",
+      "Area Camping",
+      "Masjid",
     ],
-    venue: {
-      name: "Goethe Haus Jakarta",
-      address: "Jl. Sam Ratulangi No.9, Menteng, Jakarta Pusat",
-      capacity: "300 seats",
-      facilities: ["AC", "Parking", "Wheelchair Access", "Cafe"],
-    },
     ticketTypes: [
-      { name: "Regular", price: 150000, originalPrice: 200000, benefits: ["Akses konser", "Program booklet"] },
-      { name: "VIP", price: 300000, originalPrice: undefined, benefits: ["Akses konser", "Program booklet", "Meet & greet", "Merchandise"] },
+      { 
+        name: "Tiket Masuk Reguler", 
+        price: 25000, 
+        benefits: ["Akses ke pantai", "Parkir kendaraan", "Toilet umum"] 
+      },
+      { 
+        name: "Paket ATV 30 Menit", 
+        price: 150000, 
+        benefits: ["Tiket masuk", "Rental ATV 30 menit", "Helm safety", "Pemandu"] 
+      },
       {
-        name: "VVIP",
-        price: 500000,
-        originalPrice: undefined,
+        name: "Paket Sunset Premium",
+        price: 200000,
         benefits: [
-          "Akses konser",
-          "Program booklet",
-          "Meet & greet",
-          "Merchandise",
-          "Reserved front seats",
+          "Tiket masuk",
+          "Spot foto terbaik",
           "Welcome drink",
+          "Naik andong",
+          "Guide professional",
+        ],
+      },
+    ],
+    rating: 4.5,
+    reviews: 234,
+    tags: ["Pantai", "Sunset", "Yogyakarta", "Wisata Alam"],
+    openingHours: "24 Jam",
+    bestTimeToVisit: "Sore hari (16:00 - 18:00) untuk menikmati sunset",
+  },
+  "candi-borobudur": {
+    id: "2",
+    name: "Candi Borobudur",
+    category: "Budaya",
+    location: "Magelang",
+    image: "https://images.unsplash.com/photo-1540979388789-6cee28a1cdc9?w=800&h=600&fit=crop&crop=center&q=80",
+    description: "Candi Buddha terbesar di dunia yang merupakan warisan dunia UNESCO.",
+    fullDescription: "Candi Borobudur adalah mahakarya arsitektur Buddha yang dibangun pada abad ke-8-9 Masehi. Sebagai salah satu keajaiban dunia dan situs warisan dunia UNESCO, candi ini menawarkan pengalaman spiritual dan sejarah yang mendalam. Dengan struktur yang terdiri dari 9 tingkat dan lebih dari 2.600 panel relief, Borobudur menceritakan kisah perjalanan spiritual Buddha.",
+    highlights: [
+      "Situs Warisan Dunia UNESCO",
+      "Arsitektur Buddha terbesar di dunia", 
+      "2.600+ panel relief bersejarah",
+      "Sunrise viewing yang spektakuler",
+      "Museum Borobudur",
+    ],
+    facilities: [
+      "Museum",
+      "Audio Guide",
+      "Tempat Parkir",
+      "Toilet Umum",
+      "Food Court",
+      "Souvenir Shop",
+    ],
+    ticketTypes: [
+      { 
+        name: "Tiket Domestik", 
+        price: 50000, 
+        benefits: ["Akses ke candi", "Audio guide bahasa Indonesia", "Booklet informasi"] 
+      },
+      { 
+        name: "Paket Sunrise", 
+        price: 450000, 
+        benefits: ["Akses sunrise viewing", "Transport shuttle", "Breakfast", "Professional guide"] 
+      },
+      {
+        name: "Borobudur Premium Experience",
+        price: 750000,
+        benefits: [
+          "Priority access",
+          "Private guide",
+          "Museum tour",
+          "Traditional lunch",
+          "Cultural workshop",
+          "Souvenir package",
         ],
       },
     ],
     rating: 4.8,
-    reviews: 124,
-    tags: ["Musik Klasik", "Orkestra", "Annual Event", "Jakarta"],
+    reviews: 512,
+    tags: ["Budaya", "UNESCO", "Magelang", "Sejarah"],
+    openingHours: "06:00 - 17:00 WIB",
+    bestTimeToVisit: "Pagi hari (06:00 - 10:00) atau sore hari (15:00 - 17:00)",
   },
-  "insyfest-2025-5": {
-    id: "insyfest-2025-5",
-    title: "INSYFEST 2025",
-    category: "Hiburan",
-    location: "UNIVERSITAS BUANA PERJUANGAN KARAWANG",
-    date: "September 1, 2025",
-    time: "16:00 WIB",
-    organizer: "INSYFEST",
-    image: "https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?w=800&h=600&fit=crop&crop=center&q=80",
-    price: 75000,
-    description:
-      "Festival musik dan seni terbesar di Karawang yang menghadirkan artis lokal dan nasional dalam satu panggung.",
-    fullDescription:
-      "INSYFEST 2025 adalah festival musik dan seni yang diselenggarakan oleh mahasiswa Universitas Buana Perjuangan Karawang. Festival ini menampilkan berbagai genre musik dari indie, pop, rock, hingga elektronik dengan lineup artis yang menarik.",
-    highlights: [
-      "Lineup artis lokal dan nasional",
-      "Food court dengan berbagai kuliner",
-      "Art exhibition dan workshop",
-      "Games dan doorprize menarik",
-      "Merchandise official",
-    ],
-    schedule: [
-      { time: "16:00", activity: "Gates open & Registration" },
-      { time: "17:00", activity: "Opening ceremony" },
-      { time: "17:30", activity: "Local band performances" },
-      { time: "19:00", activity: "Main stage - National artists" },
-      { time: "22:00", activity: "Closing ceremony" },
-    ],
-    venue: {
-      name: "Universitas Buana Perjuangan Karawang",
-      address: "Jl. HS. Ronggo Waluyo, Karawang",
-      capacity: "2000 people",
-      facilities: ["Outdoor Stage", "Food Court", "Parking", "Security"],
-    },
-    ticketTypes: [
-      { name: "Early Bird", price: 75000, originalPrice: undefined, benefits: ["Festival access", "Welcome kit", "Sticker pack"] },
-      { name: "Regular", price: 100000, originalPrice: undefined, benefits: ["Festival access", "Welcome kit"] },
-      {
-        name: "VIP",
-        price: 200000,
-        originalPrice: undefined,
-        benefits: ["Festival access", "Welcome kit", "VIP area", "Meet & greet", "Exclusive merchandise"],
-      },
-    ],
-    rating: 4.6,
-    reviews: 89,
-    tags: ["Music Festival", "University Event", "Karawang", "Youth"],
-  },
-  // Add more events as needed
 }
 
-interface EventDetailPageProps {
-  params: {
+interface DestinationDetailPageProps {
+  params: Promise<{
     slug: string
-  }
+  }>
 }
 
-export default function EventDetailPage({ params }: EventDetailPageProps) {
-  const { slug } = params
-  const event = eventData[slug as keyof typeof eventData]
+export default function DestinationDetailPage({ params }: DestinationDetailPageProps) {
+  const { slug } = React.use(params)
+  const destination = destinationData[slug as keyof typeof destinationData]
   const { addItem, openCart, totalItems } = useCart()
   const [selectedTicketType, setSelectedTicketType] = useState(0)
   const [quantity, setQuantity] = useState(1)
 
-  if (!event) {
+  if (!destination) {
     notFound()
   }
 
   const handleAddToCart = () => {
-    const ticketType = event.ticketTypes[selectedTicketType]
+    const ticketType = destination.ticketTypes[selectedTicketType]
     addItem({
-      id: `${event.id}-${selectedTicketType}`,
-      title: `${event.title} - ${ticketType.name}`,
+      id: `${destination.id}-${selectedTicketType}`,
+      title: `${destination.name} - ${ticketType.name}`,
       price: ticketType.price,
-      image: event.image,
-      category: event.category,
-      date: event.date,
-      location: event.location,
-      organizer: event.organizer,
+      image: destination.image,
+      category: destination.category,
+      date: "Fleksibel",
+      location: destination.location,
+      organizer: "Pengelola Wisata",
     })
     openCart()
   }
@@ -218,62 +209,62 @@ export default function EventDetailPage({ params }: EventDetailPageProps) {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Main Content */}
           <div className="lg:col-span-2">
-            {/* Event Image */}
+            {/* Destination Image */}
             <div className="relative h-96 rounded-2xl overflow-hidden mb-8">
-              <Image src={event.image || "/placeholder.svg"} alt={event.title} fill className="object-cover" />
+              <Image src={destination.image || "/placeholder.svg"} alt={destination.name} fill className="object-cover" />
               <div className="absolute top-4 left-4">
-                <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">
-                  {event.category}
+                <span className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">
+                  {destination.category}
                 </span>
               </div>
             </div>
 
-            {/* Event Info */}
+            {/* Destination Info */}
             <div className="mb-8">
-              <h1 className="text-3xl font-bold text-gray-900 mb-4">{event.title}</h1>
+              <h1 className="text-3xl font-bold text-gray-900 mb-4">{destination.name}</h1>
 
               <div className="flex items-center space-x-6 text-gray-600 mb-6">
                 <div className="flex items-center">
                   <Star className="w-5 h-5 text-yellow-400 mr-1" />
-                  <span className="font-medium">{event.rating}</span>
-                  <span className="ml-1">({event.reviews} reviews)</span>
+                  <span className="font-medium">{destination.rating}</span>
+                  <span className="ml-1">({destination.reviews} reviews)</span>
                 </div>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                 <div className="flex items-center text-gray-600">
-                  <Calendar className="w-5 h-5 mr-3 text-[#f2c14b]" />
-                  <div>
-                    <p className="font-medium">{event.date}</p>
-                    <p className="text-sm">{event.time}</p>
-                  </div>
-                </div>
-                <div className="flex items-center text-gray-600">
                   <MapPin className="w-5 h-5 mr-3 text-[#f2c14b]" />
                   <div>
-                    <p className="font-medium">{event.location}</p>
-                    <p className="text-sm">{event.venue.address}</p>
-                  </div>
-                </div>
-                <div className="flex items-center text-gray-600">
-                  <User className="w-5 h-5 mr-3 text-[#f2c14b]" />
-                  <div>
-                    <p className="font-medium">Organizer</p>
-                    <p className="text-sm">{event.organizer}</p>
+                    <p className="font-medium">Lokasi</p>
+                    <p className="text-sm">{destination.location}</p>
                   </div>
                 </div>
                 <div className="flex items-center text-gray-600">
                   <Clock className="w-5 h-5 mr-3 text-[#f2c14b]" />
                   <div>
-                    <p className="font-medium">Capacity</p>
-                    <p className="text-sm">{event.venue.capacity}</p>
+                    <p className="font-medium">Jam Operasional</p>
+                    <p className="text-sm">{destination.openingHours}</p>
+                  </div>
+                </div>
+                <div className="flex items-center text-gray-600">
+                  <Calendar className="w-5 h-5 mr-3 text-[#f2c14b]" />
+                  <div>
+                    <p className="font-medium">Waktu Terbaik</p>
+                    <p className="text-sm">{destination.bestTimeToVisit}</p>
+                  </div>
+                </div>
+                <div className="flex items-center text-gray-600">
+                  <User className="w-5 h-5 mr-3 text-[#f2c14b]" />
+                  <div>
+                    <p className="font-medium">Kategori</p>
+                    <p className="text-sm">Wisata {destination.category}</p>
                   </div>
                 </div>
               </div>
 
               {/* Tags */}
               <div className="flex flex-wrap gap-2 mb-6">
-                {event.tags.map((tag, index) => (
+                {destination.tags.map((tag, index) => (
                   <span key={index} className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm">
                     {tag}
                   </span>
@@ -283,13 +274,13 @@ export default function EventDetailPage({ params }: EventDetailPageProps) {
 
             {/* Description */}
             <div className="mb-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">Tentang Event</h2>
-              <p className="text-gray-600 mb-4">{event.description}</p>
-              <p className="text-gray-600 mb-6">{event.fullDescription}</p>
+              <h2 className="text-2xl font-bold text-gray-900 mb-4">Tentang Destinasi</h2>
+              <p className="text-gray-600 mb-4">{destination.description}</p>
+              <p className="text-gray-600 mb-6">{destination.fullDescription}</p>
 
               <h3 className="text-xl font-semibold text-gray-900 mb-3">Highlights</h3>
               <ul className="space-y-2">
-                {event.highlights.map((highlight, index) => (
+                {destination.highlights.map((highlight, index) => (
                   <li key={index} className="flex items-center text-gray-600">
                     <div className="w-2 h-2 bg-[#f2c14b] rounded-full mr-3"></div>
                     {highlight}
@@ -298,32 +289,16 @@ export default function EventDetailPage({ params }: EventDetailPageProps) {
               </ul>
             </div>
 
-            {/* Schedule */}
+            {/* Facilities */}
             <div className="mb-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">Jadwal Acara</h2>
-              <div className="space-y-4">
-                {event.schedule.map((item, index) => (
+              <h2 className="text-2xl font-bold text-gray-900 mb-4">Fasilitas</h2>
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                {destination.facilities.map((facility, index) => (
                   <div key={index} className="flex items-center p-4 bg-gray-50 rounded-lg">
-                    <div className="w-16 text-[#f2c14b] font-semibold">{item.time}</div>
-                    <div className="text-gray-700">{item.activity}</div>
+                    <div className="w-2 h-2 bg-green-500 rounded-full mr-3"></div>
+                    <span className="text-gray-700">{facility}</span>
                   </div>
                 ))}
-              </div>
-            </div>
-
-            {/* Venue Info */}
-            <div className="mb-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">Informasi Venue</h2>
-              <div className="bg-gray-50 rounded-lg p-6">
-                <h3 className="font-semibold text-gray-900 mb-2">{event.venue.name}</h3>
-                <p className="text-gray-600 mb-4">{event.venue.address}</p>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                  {event.venue.facilities.map((facility, index) => (
-                    <div key={index} className="text-sm text-gray-600 bg-white px-3 py-2 rounded-lg text-center">
-                      {facility}
-                    </div>
-                  ))}
-                </div>
               </div>
             </div>
           </div>
@@ -336,7 +311,7 @@ export default function EventDetailPage({ params }: EventDetailPageProps) {
 
                 {/* Ticket Types */}
                 <div className="space-y-3 mb-6">
-                  {event.ticketTypes.map((ticket, index) => (
+                  {destination.ticketTypes.map((ticket, index) => (
                     <div
                       key={index}
                       className={`border rounded-lg p-4 cursor-pointer transition-colors ${
@@ -394,7 +369,7 @@ export default function EventDetailPage({ params }: EventDetailPageProps) {
                   <div className="flex justify-between items-center">
                     <span className="text-lg font-semibold text-gray-900">Total</span>
                     <span className="text-2xl font-bold text-gray-900">
-                      Rp {(event.ticketTypes[selectedTicketType].price * quantity).toLocaleString("id-ID")}
+                      Rp {(destination.ticketTypes[selectedTicketType].price * quantity).toLocaleString("id-ID")}
                     </span>
                   </div>
                 </div>

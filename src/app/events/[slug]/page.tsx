@@ -7,6 +7,7 @@ import { ArrowLeft, MapPin, Calendar, User, Clock, Star, Share2, Heart, Shopping
 import { useCart } from "@/context/CartContext"
 import { useState } from "react"
 import CartSidebar from "@/components/ticket/CartSidebar"
+import React from "react"
 
 // Type definitions
 interface TicketType {
@@ -154,13 +155,13 @@ const eventData: Record<string, EventData> = {
 }
 
 interface EventDetailPageProps {
-  params: {
+  params: Promise<{
     slug: string
-  }
+  }>
 }
 
 export default function EventDetailPage({ params }: EventDetailPageProps) {
-  const { slug } = params
+  const { slug } = React.use(params)
   const event = eventData[slug as keyof typeof eventData]
   const { addItem, openCart, totalItems } = useCart()
   const [selectedTicketType, setSelectedTicketType] = useState(0)
