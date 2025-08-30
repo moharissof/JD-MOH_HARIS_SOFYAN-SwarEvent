@@ -1,17 +1,187 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
+// schema.prisma
 generator client {
   provider = "prisma-client-js"
-  output   = "../src/generated/prisma"
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+  schemas   = ["public"]
 }
 
+model User {
+  id        String   @id @default(uuid())
+  name      String
+  email     String   @unique
+  password  String
+  role      Role     @default(USER) // USER = pembeli, ORGANIZER = penyelenggara acara
+  events    Event[]  @relation("OrganizerEvents")
+  orders    Order[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
+  @@schema("public")
+}
+
+model Event {
+  id          String        @id @default(uuid())
+  title       String
+  description String?
+  category    EventCategory // ONLINE / OFFLINE
+  isPaid      Boolean       @default(true) // false = gratis
+  price       Float?        // jika gratis bisa null atau 0
+  date        DateTime
+  location    String?       // hanya untuk OFFLINE
+  linkMeet    String?       // hanya untuk ONLINE
+  webinarData String?       // detail webinar (materi, narasumber, dll.)
+  detailEvent String?       // detail event offline
+  organizer   User          @relation("OrganizerEvents", fields: [organizerId], references: [id])
+  organizerId String
+  tickets     Ticket[]
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  @@schema("public")
+}
+
+model Ticket {
+  id        String        @id @default(uuid())
+  name      String        // contoh: VIP, Reguler, Gratis
+  price     Float
+  stock     Int
+  event     Event         @relation(fields: [eventId], references: [id])
+  eventId   String
+  orders    OrderTicket[]
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+
+  @@schema("public")
+}
+
+model Destination {
+  id          String             @id @default(uuid())
+  name        String
+  description String?
+  location    String
+  openHours   String?            // contoh: 08.00 - 17.00
+  tickets     DestinationTicket[]
+  createdAt   DateTime           @default(now())
+  updatedAt   DateTime           @updatedAt
+
+  @@schema("public")
+}
+
+model DestinationTicket {
+  id            String       @id @default(uuid())
+  name          String       // contoh: Dewasa, Anak-anak, VIP
+  price         Float
+  stock         Int
+  destination   Destination  @relation(fields: [destinationId], references: [id])
+  destinationId String
+  orders        OrderDestinationTicket[]
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+
+  @@schema("public")
+}
+
+model Order {
+  id          String                  @id @default(uuid())
+  user        User                    @relation(fields: [userId], references: [id])
+  userId      String
+  status      OrderStatus             @default(PENDING)
+  totalAmount Float
+  tickets     OrderTicket[]
+  destinationTickets OrderDestinationTicket[]
+  payment     Payment?
+  invoice     Invoice?
+  createdAt   DateTime                @default(now())
+  updatedAt   DateTime                @updatedAt
+
+  @@schema("public")
+}
+
+model OrderTicket {
+  id       String @id @default(uuid())
+  order    Order  @relation(fields: [orderId], references: [id])
+  orderId  String
+  ticket   Ticket @relation(fields: [ticketId], references: [id])
+  ticketId String
+  quantity Int
+
+  @@schema("public")
+}
+
+model OrderDestinationTicket {
+  id                   String             @id @default(uuid())
+  order                Order              @relation(fields: [orderId], references: [id])
+  orderId              String
+  destinationTicket    DestinationTicket  @relation(fields: [destinationTicketId], references: [id])
+  destinationTicketId  String
+  quantity             Int
+
+  @@schema("public")
+}
+
+model Payment {
+  id        String        @id @default(uuid())
+  order     Order         @relation(fields: [orderId], references: [id])
+  orderId   String        @unique
+  method    PaymentMethod // QRIS, TRANSFER, CARD
+  status    PaymentStatus @default(PENDING)
+  paidAt    DateTime?
+  createdAt DateTime      @default(now())
+
+  @@schema("public")
+}
+
+model Invoice {
+  id         String   @id @default(uuid())
+  order      Order    @relation(fields: [orderId], references: [id])
+  orderId    String   @unique
+  invoiceUrl String?
+  sentVia    String?  // WA, EMAIL
+  createdAt  DateTime @default(now())
+
+  @@schema("public")
+}
+
+enum Role {
+  USER
+  ORGANIZER 
+  ADMIN
+
+  @@schema("public")
+}
+
+enum EventCategory {
+  ONLINE
+  OFFLINE
+
+  @@schema("public")
+}
+
+enum OrderStatus {
+  PENDING
+  PAID
+  CANCELLED
+
+  @@schema("public")
+}
+
+enum PaymentStatus {
+  PENDING
+  SUCCESS
+  FAILED
+
+  @@schema("public")
+}
+
+enum PaymentMethod {
+  QRIS
+  TRANSFER
+  CARD
+
+  @@schema("public")
+}
