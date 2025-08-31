@@ -1,3 +1,6 @@
+"use client"
+
+import { useState, useEffect } from "react"
 import Navigation from "@/components/home/Navigation"
 import HeroSection from "@/components/home/HeroSection"
 import EventCategories from "@/components/home/EventCategory"
@@ -5,118 +8,52 @@ import EventCard from "@/components/home/EventCard"
 import Link from "next/link"
 import Image from "next/image"
 
-const ongoingEvents = [
-  {
-    title: "TUTTI 2025 : An Annual Concert",
-    category: "Cinema",
-    categoryColor: "bg-blue-100 text-blue-800",
-    location: "Goethe Haus Jakarta",
-    date: "October 25, 2025",
-    organizer: "Sonore",
-    image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&h=300&fit=crop&crop=center&q=80",
-    href: "/tutti-2025-1",
-  },
-  {
-    title: "INSYFEST 2025",
-    category: "Hiburan",
-    categoryColor: "bg-blue-100 text-blue-800",
-    location: "UNIVERSITAS BUANA PERJUANGAN KARAWANG",
-    date: "September 1, 2025",
-    organizer: "INSYFEST",
-    image: "https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?w=400&h=300&fit=crop&crop=center&q=80",
-    href: "/insyfest-2025-5",
-  },
-  {
-    title: 'Nongan Village Festival "SARASAMI"',
-    category: "Hiburan",
-    categoryColor: "bg-blue-100 text-blue-800",
-    location: "LAPANGAN DESA NONGAN",
-    date: "October 12, 2025",
-    organizer: "NVF",
-    image: "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=400&h=300&fit=crop&crop=center&q=80",
-    href: "/nongan-village-festi",
-  },
-  {
-    title: "Anniversary Pasukan Suka Konser",
-    category: "Hiburan",
-    categoryColor: "bg-blue-100 text-blue-800",
-    location: "Semu Coffe, Srengseng, Jakarta Barat",
-    date: "September 9, 2025",
-    organizer: "sambat event organizer",
-    image: "https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=400&h=300&fit=crop&crop=center&q=80",
-    href: "/anniversary-pasukan",
-  },
-  {
-    title: "Malam Keakraban Siswa",
-    category: "Hiburan",
-    categoryColor: "bg-blue-100 text-blue-800",
-    location: "Graha RMC",
-    date: "October 25, 2025",
-    organizer: "HIMAPRODI SI ITB STIKOM",
-    image: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=400&h=300&fit=crop&crop=center&q=80",
-    href: "/malam-keakraban",
-  },
-]
+// Types
+interface Event {
+  id: string
+  title: string
+  description: string
+  thumbnail: string | null
+  location: string
+  date: string
+  category: string
+  organizer: {
+    name: string
+  }
+}
 
-const pastEvents = [
-  {
-    title: "The Beatles Music Celebration",
-    category: "Musik",
-    categoryColor: "bg-green-100 text-green-800",
-    location: "The Plaza Music Hall",
-    date: "September 20, 2024",
-    organizer: "Music Festival Indonesia",
-    image: "https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=400&h=300&fit=crop&crop=center&q=80",
-    href: "#",
-    isEnded: true,
-  },
-  {
-    title: "Harmony and Wellness Meditation Concert",
-    category: "Wellness",
-    categoryColor: "bg-purple-100 text-purple-800",
-    location: "Banyuwangi Cultural Center",
-    date: "August 15, 2024",
-    organizer: "Wellness Community Banyuwangi",
-    image: "https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=400&h=300&fit=crop&crop=center&q=80",
-    href: "#",
-    isEnded: true,
-  },
-  {
-    title: "Family Gathering & Fun Day",
-    category: "Keluarga",
-    categoryColor: "bg-orange-100 text-orange-800",
-    location: "Banyuwangi Beach Resort",
-    date: "July 10, 2024",
-    organizer: "Community Connect Banyuwangi",
-    image: "https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=400&h=300&fit=crop&crop=center&q=80",
-    href: "#",
-    isEnded: true,
-  },
-  {
-    title: "Theater Tepi Waktu by Fellowship Program",
-    category: "Hiburan",
-    categoryColor: "bg-pink-100 text-pink-800",
-    location: "Salihara Arts Center",
-    date: "April 12, 2025",
-    organizer: "Fellowship UAG",
-    image: "https://images.unsplash.com/photo-1503095396549-807759245b35?w=400&h=300&fit=crop&crop=center&q=80",
-    href: "#",
-    isEnded: true,
-  },
-]
+interface Destination {
+  id: string
+  name: string
+  thumbnail: string | null
+  location: string
+}
 
-const destinations = [
-  { name: "PAPUA", image: "https://images.unsplash.com/photo-1547036967-23d11aacaee0?w=400&h=250&fit=crop&crop=center&q=80" },
-  { name: "KALIMANTAN", image: "https://images.unsplash.com/photo-1570214476695-19bd467e6f2a?w=400&h=250&fit=crop&crop=center&q=80" },
-  { name: "BALI", image: "https://images.unsplash.com/photo-1537953773345-d172ccf13cf1?w=400&h=250&fit=crop&crop=center&q=80" },
-  { name: "SURABAYA", image: "https://images.unsplash.com/photo-1555400242-17f22ac8b9e0?w=400&h=250&fit=crop&crop=center&q=80" },
-  { name: "DI YOGYAKARTA", image: "https://images.unsplash.com/photo-1539650116574-75c0c6d73f6e?w=400&h=250&fit=crop&crop=center&q=80" },
-  { name: "BANDUNG", image: "https://images.unsplash.com/photo-1605649487212-47bdab064df7?w=400&h=250&fit=crop&crop=center&q=80" },
-  { name: "DKI JAKARTA", image: "https://images.unsplash.com/photo-1555400243-4-5dd2c80d1b9c?w=400&h=250&fit=crop&crop=center&q=80" },
-]
+// API Functions
+async function getEvents() {
+  try {
+    const response = await fetch('/api/events')
+    if (!response.ok) throw new Error('Failed to fetch events')
+    return await response.json()
+  } catch (error) {
+    console.error('Error fetching events:', error)
+    return []
+  }
+}
 
+async function getDestinations() {
+  try {
+    const response = await fetch('/api/destinations')
+    if (!response.ok) throw new Error('Failed to fetch destinations')
+    return await response.json()
+  } catch (error) {
+    console.error('Error fetching destinations:', error)
+    return []
+  }
+}
 
-const clients = [
+// Fallback data
+const fallbackClients = [
   { name: "Arkaya", image: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=200&h=120&fit=crop&crop=center&q=80" },
   { name: "AMK Fest", image: "https://images.unsplash.com/photo-1514933651103-005eec06c04b?w=200&h=120&fit=crop&crop=center&q=80" },
   { name: "Artspirasi", image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=200&h=120&fit=crop&crop=center&q=80" },
@@ -129,7 +66,92 @@ const clients = [
   { name: "Inbis Bali", image: "https://images.unsplash.com/photo-1511578314322-379afb476865?w=200&h=120&fit=crop&crop=center&q=80" },
 ]
 
+// Utility functions
+const getCategoryColor = (category: string) => {
+  const colors: { [key: string]: string } = {
+    'ONLINE': 'bg-blue-100 text-blue-800',
+    'OFFLINE': 'bg-green-100 text-green-800',
+    'HYBRID': 'bg-purple-100 text-purple-800',
+    'Cinema': 'bg-indigo-100 text-indigo-800',
+    'Hiburan': 'bg-pink-100 text-pink-800',
+    'Musik': 'bg-red-100 text-red-800',
+    'Workshop': 'bg-yellow-100 text-yellow-800',
+    'default': 'bg-gray-100 text-gray-800'
+  }
+  return colors[category] || colors.default
+}
+
+const formatEventDate = (dateString: string) => {
+  try {
+    const date = new Date(dateString)
+    return date.toLocaleDateString('id-ID', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    })
+  } catch {
+    return dateString
+  }
+}
+
+const transformEventData = (event: Event) => ({
+  title: event.title,
+  category: event.category,
+  categoryColor: getCategoryColor(event.category),
+  location: event.location,
+  date: formatEventDate(event.date),
+  organizer: event.organizer?.name || 'Unknown Organizer',
+  image: event.thumbnail || "https://images.unsplash.com/photo-1514933651103-005eec06c04b?w=400&h=300&fit=crop&crop=center&q=80",
+  href: `/events/${event.id}`,
+  isEnded: new Date(event.date) < new Date()
+})
+
 export default function HomePage() {
+  const [events, setEvents] = useState<Event[]>([])
+  const [destinations, setDestinations] = useState<Destination[]>([])
+  const [loadingEvents, setLoadingEvents] = useState(true)
+  const [loadingDestinations, setLoadingDestinations] = useState(true)
+
+  useEffect(() => {
+    // Fetch events
+    const fetchEvents = async () => {
+      setLoadingEvents(true)
+      const eventsData = await getEvents()
+      setEvents(eventsData)
+      setLoadingEvents(false)
+    }
+
+    // Fetch destinations
+    const fetchDestinations = async () => {
+      setLoadingDestinations(true)
+      const destinationsData = await getDestinations()
+      setDestinations(destinationsData)
+      setLoadingDestinations(false)
+    }
+
+    fetchEvents()
+    fetchDestinations()
+  }, [])
+
+  // Filter events
+  const today = new Date()
+  const ongoingEvents = events
+    .filter(event => new Date(event.date) >= today)
+    .slice(0, 5)
+    .map(transformEventData)
+
+  const pastEvents = events
+    .filter(event => new Date(event.date) < today)
+    .slice(0, 4)
+    .map(transformEventData)
+
+  // Transform destinations
+  const transformedDestinations = destinations.map(dest => ({
+    name: dest.name,
+    image: dest.thumbnail || "https://images.unsplash.com/photo-1547036967-23d11aacaee0?w=400&h=250&fit=crop&crop=center&q=80",
+    href: `/destinations/${dest.id}`
+  }))
+
   return (
     <div className="min-h-screen bg-white font-sans antialiased text-gray-800">
       <Navigation />
@@ -141,18 +163,34 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center mb-2">
             <h2 className="text-2xl font-bold text-gray-900">Sedang berjalan</h2>
-            <Link href="/events" className="text-gray-600 hover:text-gray-800 font-medium text-sm flex items-center">
+            <Link href="/tickets" className="text-gray-600 hover:text-gray-800 font-medium text-sm flex items-center">
               Lihat semua <span className="ml-1">›</span>
             </Link>
           </div>
           <p className="text-gray-500 mb-8">Temukan event yang paling banyak dicari</p>
 
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-5">
-            {ongoingEvents.map((event, index) => (
-              <div key={index} className="h-full">
-                <EventCard {...event} />
+            {loadingEvents ? (
+              // Loading skeleton
+              Array.from({ length: 5 }).map((_, index) => (
+                <div key={index} className="animate-pulse">
+                  <div className="bg-gray-200 h-48 rounded-lg mb-4"></div>
+                  <div className="h-4 bg-gray-200 rounded mb-2"></div>
+                  <div className="h-3 bg-gray-200 rounded mb-1"></div>
+                  <div className="h-3 bg-gray-200 rounded w-3/4"></div>
+                </div>
+              ))
+            ) : ongoingEvents.length > 0 ? (
+              ongoingEvents.map((event, index) => (
+                <div key={index} className="h-full">
+                  <EventCard {...event} />
+                </div>
+              ))
+            ) : (
+              <div className="col-span-5 text-center py-8 text-gray-500">
+                Belum ada event yang sedang berjalan
               </div>
-            ))}
+            )}
           </div>
         </div>
       </div>
@@ -162,18 +200,34 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center mb-8">
             <h2 className="text-2xl font-bold text-gray-900">Event berlalu</h2>
-            <Link href="/events" className="text-[#f2c14b] hover:text-[#e6b143] font-medium">
+            <Link href="/tickets" className="text-[#f2c14b] hover:text-[#e6b143] font-medium">
               Lihat semua →
             </Link>
           </div>
           <p className="text-gray-500 mb-8">Kami sudah menyukseskan banyak event - event di Indonesia</p>
 
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {pastEvents.map((event, index) => (
-              <div key={index} className="h-full">
-                <EventCard {...event} />
+            {loadingEvents ? (
+              // Loading skeleton
+              Array.from({ length: 4 }).map((_, index) => (
+                <div key={index} className="animate-pulse">
+                  <div className="bg-gray-200 h-48 rounded-lg mb-4"></div>
+                  <div className="h-4 bg-gray-200 rounded mb-2"></div>
+                  <div className="h-3 bg-gray-200 rounded mb-1"></div>
+                  <div className="h-3 bg-gray-200 rounded w-3/4"></div>
+                </div>
+              ))
+            ) : pastEvents.length > 0 ? (
+              pastEvents.map((event, index) => (
+                <div key={index} className="h-full">
+                  <EventCard {...event} />
+                </div>
+              ))
+            ) : (
+              <div className="col-span-4 text-center py-8 text-gray-500">
+                Belum ada event yang telah berlalu
               </div>
-            ))}
+            )}
           </div>
         </div>
       </div>
@@ -185,22 +239,35 @@ export default function HomePage() {
           <p className="text-gray-500 mb-8">Temukan event - event besar di daerahmu</p>
 
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-4">
-            {destinations.map((destination, index) => (
-              <Link key={index} href="#" className="destination-card h-32">
-                <Image
-                  className="w-full h-full object-cover"
-                  src={destination.image || "/placeholder.svg"}
-                  alt={destination.name}
-                  width={200}
-                  height={128}
-                />
-                <h3 className="font-medium">{destination.name}</h3>
-              </Link>
-            ))}
+            {loadingDestinations ? (
+              // Loading skeleton
+              Array.from({ length: 7 }).map((_, index) => (
+                <div key={index} className="animate-pulse">
+                  <div className="bg-gray-200 h-32 rounded-lg mb-2"></div>
+                  <div className="h-3 bg-gray-200 rounded"></div>
+                </div>
+              ))
+            ) : transformedDestinations.length > 0 ? (
+              transformedDestinations.slice(0, 7).map((destination, index) => (
+                <Link key={index} href={destination.href} className="destination-card h-32">
+                  <Image
+                    className="w-full h-full object-cover"
+                    src={destination.image}
+                    alt={destination.name}
+                    width={200}
+                    height={128}
+                  />
+                  <h3 className="font-medium">{destination.name}</h3>
+                </Link>
+              ))
+            ) : (
+              <div className="col-span-7 text-center py-8 text-gray-500">
+                Belum ada destinasi tersedia
+              </div>
+            )}
           </div>
         </div>
       </div>
-
 
       {/* Clients Section */}
       <div className="bg-white py-12">
@@ -214,11 +281,11 @@ export default function HomePage() {
 
           <div className="mt-16">
             <div className="grid grid-cols-2 gap-8 md:grid-cols-4 lg:grid-cols-5">
-              {clients.map((client, index) => (
+              {fallbackClients.map((client, index) => (
                 <div key={index} className="col-span-1 flex justify-center">
                   <Image
                     className="h-20 client-logo"
-                    src={client.image || "/placeholder.svg"}
+                    src={client.image}
                     alt={client.name}
                     width={120}
                     height={80}
@@ -230,38 +297,7 @@ export default function HomePage() {
         </div>
       </div>
 
-      {/* CTA Section */}
-      {/* <div className="bg-[#f2c14b]">
-        <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8 lg:py-24">
-          <div className="lg:grid lg:grid-cols-2 lg:gap-8 lg:items-center">
-            <div>
-              <h2 className="text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
-                Ingin tau lebih banyak keuntungan Tokoevent?
-              </h2>
-              <p className="mt-3 max-w-3xl text-lg leading-6 text-white/90">
-                Gabung bersama ratusan event organizer yang sudah menjual tiket konser, seminar, dan festival lewat
-                Tokoevent. Tanpa potongan, bisa pakai QR, dan gratis tiket gelang!
-              </p>
-            </div>
-            <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2">
-              <Link
-                href="/sell-tickets"
-                className="flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-[#f2c14b] bg-white hover:bg-gray-50"
-              >
-                Mulai Jual Tiket
-              </Link>
-              <Link
-                href="/contact"
-                className="flex items-center justify-center px-5 py-3 border border-white text-base font-medium rounded-md text-white bg-transparent hover:bg-white/10"
-              >
-                Konsultasi Gratis
-              </Link>
-            </div>
-          </div>
-        </div>
-      </div> */}
-
-      {/* Footer */}
+      {/* Footer - Existing footer code remains the same */}
       <footer className="bg-gray-900">
         <div className="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
@@ -327,7 +363,7 @@ export default function HomePage() {
                   </Link>
                 </li>
                 <li>
-                  <Link href="/events" className="text-gray-300 hover:text-white transition-colors duration-200 flex items-center">
+                  <Link href="/tickets" className="text-gray-300 hover:text-white transition-colors duration-200 flex items-center">
                     <svg className="w-4 h-4 mr-3" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd" />
                     </svg>

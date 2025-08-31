@@ -17,9 +17,9 @@ const quicksand = Quicksand({
 
 export const metadata: Metadata = {
   title:
-    "Tokoevent | Platform Tiketing Event Tanpa Biaya & Gratis Tiket Gelang",
+    "SwarEvent | Platform Tiketing Event Khusus Banyuwangi & Gratis Tiket Gelang",
   description:
-    "Platform tiketing tanpa biaya di Indonesia. Kelola eventmu dengan mudah dan profitable.",
+    "Platform tiketing khusus Banyuwangi. Kelola eventmu dengan mudah dan profitable di kota Banyuwangi.",
   generator: "v0.app",
 };
 
