@@ -1,12 +1,34 @@
 "use client"
 
 import { useState } from "react"
+import { usePathname } from "next/navigation"
 import Image from "next/image"
 import Link from "next/link"
 import { Menu, X } from "lucide-react"
 
 export default function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const pathname = usePathname()
+
+  // Function to check if route is active
+  const isActiveRoute = (route: string) => {
+    if (route === "/") {
+      return pathname === "/"
+    }
+    return pathname.startsWith(route)
+  }
+
+  // Function to get link classes based on active state
+  const getLinkClasses = (route: string, isMobile = false) => {
+    const baseClasses = isMobile 
+      ? "block px-3 py-2 rounded-md text-base font-medium font-quicksand"
+      : "inline-flex items-center px-1 pt-1 text-sm font-medium font-quicksand"
+    
+    if (isActiveRoute(route)) {
+      return `${baseClasses} text-[#f2c14b]`
+    }
+    return `${baseClasses} text-gray-500 hover:text-gray-900`
+  }
 
   return (
     <nav className="bg-white shadow-sm sticky top-0 z-50">
@@ -14,32 +36,32 @@ export default function Navigation() {
         <div className="flex justify-between items-center h-20">
           <div className="flex items-center">
             <Link href="/" className="flex-shrink-0 flex items-center">
-              <Image className="h-10 w-auto" src="/images/Logo.png" alt="Tokoevent" width={300} height={200} />
+              <Image className="h-10 w-auto" src="/images/Logo.png" alt="SwarEvent" width={300} height={200} />
             </Link>
           </div>
 
           <div className="hidden md:flex md:items-center md:space-x-8">
             <Link
               href="/"
-              className="text-[#f2c14b] inline-flex items-center px-1 pt-1 text-sm font-medium font-quicksand"
+              className={getLinkClasses("/")}
             >
               Beranda
             </Link>
             <Link
               href="/tickets"
-              className="text-gray-500 hover:text-gray-900 inline-flex items-center px-1 pt-1 text-sm font-medium font-quicksand"
+              className={getLinkClasses("/tickets")}
             >
               Ticket
             </Link>
             <Link
-              href="/affiliate"
-              className="text-gray-500 hover:text-gray-900 inline-flex items-center px-1 pt-1 text-sm font-medium font-quicksand"
+              href="/mitra"
+              className={getLinkClasses("/mitra")}
             >
-              Affiliate
+              Info Kemitraan
             </Link>
             <Link
               href="/contact"
-              className="text-gray-500 hover:text-gray-900 inline-flex items-center px-1 pt-1 text-sm font-medium font-quicksand"
+              className={getLinkClasses("/contact")}
             >
               Hubungi Kami
             </Link>
@@ -78,24 +100,31 @@ export default function Navigation() {
       {isMenuOpen && (
         <div className="md:hidden">
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t">
-            <Link href="/" className="text-[#f2c14b] block px-3 py-2 rounded-md text-base font-medium font-quicksand">
+            <Link 
+              href="/" 
+              className={getLinkClasses("/", true)}
+              onClick={() => setIsMenuOpen(false)}
+            >
               Beranda
             </Link>
             <Link
-              href="/partnership"
-              className="text-gray-500 hover:text-gray-900 block px-3 py-2 rounded-md text-base font-medium font-quicksand"
+              href="/tickets"
+              className={getLinkClasses("/tickets", true)}
+              onClick={() => setIsMenuOpen(false)}
             >
-              Partnership
+              Ticket
             </Link>
             <Link
-              href="/affiliate"
-              className="text-gray-500 hover:text-gray-900 block px-3 py-2 rounded-md text-base font-medium font-quicksand"
+              href="/mitra"
+              className={getLinkClasses("/affiliate", true)}
+              onClick={() => setIsMenuOpen(false)}
             >
-              Affiliate
+              Info Kemitraan
             </Link>
             <Link
               href="/contact"
-              className="text-gray-500 hover:text-gray-900 block px-3 py-2 rounded-md text-base font-medium font-quicksand"
+              className={getLinkClasses("/contact", true)}
+              onClick={() => setIsMenuOpen(false)}
             >
               Hubungi Kami
             </Link>
@@ -104,12 +133,14 @@ export default function Navigation() {
                 <Link
                   href="/login"
                   className="text-gray-500 hover:text-gray-900 text-center py-2 rounded-md text-base font-medium font-quicksand border border-gray-300 hover:bg-gray-50 transition-colors"
+                  onClick={() => setIsMenuOpen(false)}
                 >
                   Masuk
                 </Link>
                 <Link
                   href="/register"
                   className="bg-gradient-to-r from-[#f2c14b] to-[#e6b143] text-black text-center py-2 rounded-md text-base font-medium font-quicksand hover:from-[#e6b143] hover:to-[#d4a139] transition-all"
+                  onClick={() => setIsMenuOpen(false)}
                 >
                   Daftar
                 </Link>

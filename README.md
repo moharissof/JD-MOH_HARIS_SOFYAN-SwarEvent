@@ -1,7 +1,6 @@
 # SwarEvent - Platform Tiket Event & Webinar
 
 <div align="center">
-  <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=800&q=80" alt="SwarEvent Banner" width="800"/>
   
   <p align="center">
     Platform terpercaya untuk membeli tiket event, konser, workshop, dan webinar terbaik di Banyuwangi
@@ -77,11 +76,7 @@ Kunjungi demo live: [SwarEvent Demo](https://swar-event.vercel.app) *(Coming Soo
 
 ### Screenshots
 
-<div align="center">
-  <img src="https://images.unsplash.com/photo-1579952363873-27d3bfad9c0d?w=600&q=80" alt="Ijen Crater" width="300"/>
-  <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=600&q=80" alt="Event Banyuwangi" width="300"/>
-  <img src="https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=600&q=80" alt="Festival Budaya" width="300"/>
-</div>
+
 
 ## 🛠️ Teknologi
 
@@ -268,7 +263,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 **Mohammad Haris Sofyan**
 - GitHub: [@moharissof](https://github.com/moharissof)
-- Email: [your-email@example.com]
+- Email: [haristiani243@gmail.com]
 
 ## 🙏 Acknowledgments
 

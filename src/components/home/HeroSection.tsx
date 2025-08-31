@@ -11,19 +11,19 @@ export default function HeroSection() {
       title: "Beli Tiket Online",
       subtitle:
         "Beli tiket online lebih mudah, ga perlu khawatir kehabisan tiket atau repot datang ke tempat penjualan fisik.",
-      backgroundImage: "https://plus.unsplash.com/premium_photo-1661315459644-18297c559777?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTN8fGV2ZW50fGVufDB8fDB8fHww",
+      backgroundImage: "https://template.canva.com/EAGHLTWrghQ/1/0/1600w-153q30i0dlE.jpg",
       buttonText: "Cari event populer",
     },
     {
       title: "Platform Jual Tiket Tanpa Biaya",
-      subtitle: "Platform tiketing tanpa biaya di Indonesia. Kelola eventmu dengan mudah dan profitable.",
-      backgroundImage: "https://plus.unsplash.com/premium_photo-1661315459644-18297c559777?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTN8fGV2ZW50fGVufDB8fDB8fHww",
+      subtitle: "Platform tiketing tanpa biaya di Banyuwangi. Kelola eventmu dengan mudah dan profitable.",
+      backgroundImage: "https://template.canva.com/EAGHLTWrghQ/1/0/1600w-153q30i0dlE.jpg",
       buttonText: "Jual Tiket Sekarang",
     },
     {
-      title: "Jangkauan Nasional",
-      subtitle: "Jual tiket ke seluruh Indonesia dengan sistem pembayaran yang aman dan terpercaya.",
-      backgroundImage: "https://plus.unsplash.com/premium_photo-1661315459644-18297c559777?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTN8fGV2ZW50fGVufDB8fDB8fHww",
+      title: "Jangkauan Keseluruh Banyuwangi",
+      subtitle: "Jual tiket ke seluruh Banyuwangi dengan sistem pembayaran yang aman dan terpercaya.",
+      backgroundImage: "https://template.canva.com/EAGHLTWrghQ/1/0/1600w-153q30i0dlE.jpg",
       buttonText: "Mulai Sekarang",
     },
   ]
